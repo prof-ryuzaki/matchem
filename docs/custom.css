@@ -113,3 +113,7 @@ a.foot-bar {
 nav.foot-bar {
     padding-bottom: 50em;
 }
+
+.code_cell {
+    overflow: scroll;
+}
