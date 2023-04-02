@@ -1,0 +1,115 @@
+
+body {
+    background-color: rgb(37,40,44);
+  }
+
+.notebook {
+    background-color: white;
+    padding: 2em;
+    max-width: 70em;
+    margin: auto;
+}
+  
+  h1 {
+    color: rgb(118,61,65);
+    text-align: center;
+    font-family: verdana;
+    font-size: 3em;
+    padding: 30px;
+  }
+
+  h2 {
+    color: rgb(118,61,65);
+    font-family: verdana;
+    font-size: 2em;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+  }
+
+  h3 {
+    color: rgb(118,61,65);
+    font-family: verdana;
+    font-size: 1.5em;
+    text-transform: capitalize;
+    padding-bottom: 2em;
+    padding-top: 3em
+  }
+  
+  p {
+    font-family: verdana;
+    font-size: 1.2em;
+    line-height: 1.5;
+  } 
+
+  ol {
+    font-family: verdana;
+    font-size: 1.2em;
+    line-height: 1.2;
+  }
+
+  ul {
+    font-family: verdana;
+    font-size: 1.2em;
+    line-height: 1.2;
+  }
+
+  li {
+    padding-bottom: 0.5em;
+  }
+
+  blockquote {
+    background-color: rgb(254, 249, 229);
+    font-family: verdana;
+    font-size: 1.2em;
+    line-height: 1.2;
+    padding: 0.5em;
+    text-align: center;
+  }
+
+  .prompt {
+    display: none;
+  }
+
+  .inner_cell {
+    padding: 15px 10px 15px 10px;
+  }
+
+  ul.nav-bar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+li.nav-bar {
+  float: left;
+}
+
+li.nav-bar a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li.nav-bar a:hover {
+  background-color: #111;
+}
+
+p.foot-bar {
+    text-align: center;
+    color: white;
+    weight: bold;
+    padding: 1em;
+}
+
+a.foot-bar {
+    color: white;
+    weight: bold;
+}
+
+nav.foot-bar {
+    padding-bottom: 50em;
+}
