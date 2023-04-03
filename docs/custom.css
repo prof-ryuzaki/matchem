@@ -114,14 +114,14 @@ nav.foot-bar {
     padding-bottom: 50em;
 }
 
-.input {
+.input_area {
     display: block;
     white-space: nowrap;
-    overflow: auto;
+    overflow: scroll;
 }
 
-.output_wrapper {
+.output_area {
     display: block;
     white-space: nowrap;
-    overflow: auto;
+    overflow: scroll;
 }
