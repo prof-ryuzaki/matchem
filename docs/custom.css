@@ -114,7 +114,7 @@ nav.foot-bar {
     padding-bottom: 50em;
 }
 
-.code_cell {
+.input {
     display: block;
     white-space: nowrap;
     overflow: auto;
