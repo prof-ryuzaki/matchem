@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+
+<title>vector_space_definition_and_examples</title>
+
+    <style>
+
+pre {
+  overflow: auto;
+}
+pre > code {
+  display: block;
+  padding: 1rem;
+  word-wrap: normal;
+}
+
+        </style>
+
+</head>
+
+<body>
+
+    <code>
+<div class="cell border-box-sizing code_cell rendered">
+    <div class="input">
+    <div class="prompt input_prompt">In&nbsp;[9]:</div>
+    <div class="inner_cell">
+        <div class="input_area">
+    <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">ScalarReal</span><span class="p">:</span>
+        
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+            
+        <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_scalar</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_scalar</span><span class="p">,</span> <span class="n">ScalarReal</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">ScalarReal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">+</span> <span class="n">other_scalar</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+        
+        <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ScalarReal</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">ScalarReal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">*</span> <span class="n">other</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">VecPolynomial</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">number</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;unsupported operand type(s) for *: &#39;ScalarReal&#39; and &#39;{type(other)}&#39;&quot;</span><span class="p">)</span>
+                
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;ScalarReal({str(self.number)})&quot;</span>
+        
+        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number</span><span class="p">)</span>
+        
+    <span class="k">class</span> <span class="nc">VecPolynomial</span><span class="p">:</span>
+            
+        <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">coefficients</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="n">ScalarReal</span><span class="p">)</span> <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">coefficients</span><span class="p">]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="n">coefficients</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">coeff</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">coefficients</span><span class="p">]):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span> <span class="o">=</span> <span class="p">[</span><span class="n">ScalarReal</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span> <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="n">coefficients</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;coefficients must be all &#39;ScalarReal&#39; or &#39;float&#39;.&quot;</span><span class="p">)</span>
+            
+            <span class="c1"># will assume that all coefficients are non-zero</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)</span>
+            
+            <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+        
+        <span class="k">def</span> <span class="nf">set_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+            
+        <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_vector</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other_vector</span><span class="p">,</span> <span class="n">VecPolynomial</span><span class="p">)</span>
+            
+            <span class="c1"># check degree and asing</span>
+            <span class="c1"># a &lt;- higher degree</span>
+            <span class="c1"># b &lt;- lower degree</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">&gt;=</span> <span class="n">other_vector</span><span class="o">.</span><span class="n">degree</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="n">other_vector</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="n">other_vector</span>
+                <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span>
+            
+            <span class="c1"># zip will ignore coeffs exceding the lower degree</span>
+            <span class="n">new_coefficients</span> <span class="o">=</span> <span class="p">[</span><span class="n">acoeff</span> <span class="o">+</span> <span class="n">bcoeff</span> <span class="k">for</span> <span class="n">acoeff</span><span class="p">,</span> <span class="n">bcoeff</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)]</span>
+            
+            <span class="c1"># now just add the ones that are left</span>
+            <span class="n">new_coefficients</span> <span class="o">=</span> <span class="n">new_coefficients</span> <span class="o">+</span> <span class="n">a</span><span class="o">.</span><span class="n">coefficients</span><span class="p">[</span><span class="n">b</span><span class="o">.</span><span class="n">degree</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">other_vector</span><span class="o">.</span><span class="n">label</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">VecPolynomial</span><span class="p">(</span><span class="n">new_coefficients</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">+</span><span class="s1">&#39;+&#39;</span><span class="o">+</span><span class="n">other_vector</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">VecPolynomial</span><span class="p">(</span><span class="n">new_coefficients</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+        
+        <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scalar</span><span class="p">):</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scalar</span><span class="p">,</span> <span class="n">ScalarReal</span><span class="p">)</span>
+            <span class="n">new_coefficients</span> <span class="o">=</span> <span class="p">[</span><span class="n">scalar</span> <span class="o">*</span> <span class="n">coeff</span> <span class="k">for</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;+&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">VecPolynomial</span><span class="p">(</span><span class="n">new_coefficients</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{scalar.number}</span><span class="s2"> * (</span><span class="si">{self.label}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">VecPolynomial</span><span class="p">(</span><span class="n">new_coefficients</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;</span><span class="si">{scalar.number}</span><span class="s2"> * </span><span class="si">{self.label}</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">f</span><span class="s2">&quot;VecPolynomial({[coeff.number for coeff in self.coefficients]}, </span><span class="si">{self.label}</span><span class="s2">)&quot;</span>
+        
+        <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+        
+        <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+            <span class="n">p_of_x</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">coeff</span> <span class="o">*</span> <span class="n">x</span> <span class="o">**</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">coeff</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">)])</span>
+            <span class="k">return</span> <span class="n">p_of_x</span>
+        
+        <span class="k">def</span> <span class="nf">plot_polynomial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">xmax</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_array</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">x_array</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">)</span>
+    </pre></div>
+    
+        </div>
+    </div>
+    </div>
+    
+    </div>
+</div>
+
+</code>
+
+</body>
+
+</html>

@@ -66,10 +66,6 @@ body {
     text-align: center;
   }
 
-  .prompt {
-    display: none;
-  }
-
   .inner_cell {
     padding: 15px 10px 15px 10px;
   }
@@ -114,14 +110,19 @@ nav.foot-bar {
     padding-bottom: 50em;
 }
 
-.input_area {
-    display: block;
-    white-space: nowrap;
-    overflow: scroll;
+.prompt {
+    display: none;
+  }
+
+  /* make all code cells scrollable
+div.code_cell {
+    overflow-x: auto;
 }
 
-.output_area {
-    display: block;
-    white-space: nowrap;
-    overflow: scroll;
+make input and output areas scrollable
+div.input_area,
+div.output_area {
+    overflow-x: auto;
 }
+*/
+
