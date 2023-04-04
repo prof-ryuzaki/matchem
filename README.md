@@ -2,9 +2,9 @@ Hola!
 
 Si quieres saber de qué va esto, ve a la página web del repositorio:
 
-[https://prof-ryuzaki.github.io/matchem/]
+<https://prof-ryuzaki.github.io/matchem/>
 
-Si estás aquí por los Jupyter Notebooks, los tienes en la carpeta [notebooks].
+Si estás aquí por los Jupyter Notebooks, los tienes en la carpeta **notebooks**.
 
   * Puedes leerlos haciendo click en el que quieras.
 
@@ -21,9 +21,9 @@ Hi there!
 
 If you want to know more about the project go to:
 
-[https://prof-ryuzaki.github.io/matchem/]
+<https://prof-ryuzaki.github.io/matchem/>
 
-If you are only looking for the Jupyter Notebooks, you can find them in the [notebooks] directory.
+If you are only looking for the Jupyter Notebooks, you can find them in the **notebooks** directory.
 
   * Read them by simply clicking on them.
 
