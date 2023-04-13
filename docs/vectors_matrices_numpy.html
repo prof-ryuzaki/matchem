@@ -1,0 +1,3165 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>vector_space_definition_and_examples</title>
+
+<link rel="stylesheet" href="custom.css">
+<link href="themes/prism.css" rel="stylesheet" />
+
+</head>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+<!-- End of mathjax configuration --></head>
+
+<body>
+<nav id=navigation-bar>
+<ul class=nav-bar>
+<li class=nav-bar><a href="index.html"><img src="taza.png" alt="Taza R" width="50" height="50"></a></li>
+</ul> 
+</nav>
+<div class=notebook>
+  <div tabindex="-1", id="notebook", class="border-box-sizing">
+
+    <div class="container", id="notebook-container">
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<h1 id="Vectors-and-matrices-with-numpy">Vectors and matrices with numpy<a class="anchor-link", href="#Vectors-and-matrices-with-numpy"></a></h1>
+<p>Hola mi joven Padawan,</p>
+
+<p>Cuando te enseñaron Python, te hablaron de las listas.</p>
+
+<p>Pero las listas no son muy cómodas para representar vectores.</p>
+
+<p>Igual que las listas de listas no lo son para representar matrices.</p>
+
+<p><code>Numpy</code> soluciona esto.</p>
+
+<p><br></p>
+
+<p>Esta sesión es más un recopilatorio.</p>
+
+<p>Una referencia para arrancar con lo básico.</p>
+
+<p>Todo es muy intuitivo, así que vamos a ir rápido.</p>
+
+<p><em>¡Vamos!</em></p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<h2 id="You-will-find...">You will find...<a class="anchor-link", href="#You-will-find..."></a></h2>
+<ol>
+<li><a href="#initializing-vectors">Initializing vectors</a></li>
+<li><a href="#initializing-matrices">Initializing matrices</a></li>
+<li><a href="#accessing-info">Accessing info about the vector or matrix</a></li>
+<li><a href="#addition-multiplication-dot">Addition, matrix multiplication and dot product</a></li>
+<li><a href="#mathematical-functions-numpy">Mathematical functions in <code>numpy</code></a></li>
+<li><a href="#boolean-operators">Boolean operators</a></li>
+<li><a href="#aggregation-functions">Aggregation functions</a></li>
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [1]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">import numpy as np</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Fix the randomness seed for replicability:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [2]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.random.seed(734)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="initializing-vectors"></a></p>
+
+<h2 id="Initializing-vectors">Initializing vectors<a class="anchor-link", href="#Initializing-vectors"></a></h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Let's define the same dimension for all of them</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [3]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">dim = 5</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>1) Array from given values (dimension is inferred)</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [4]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v = np.array([1,3.4,-6,.025,73])</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>2) Empty array with given dimension (locates space!)</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [5]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">e = np.empty(dim)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>3) Array filled with: <code>a</code> ones, <code>b</code> zeros, <code>f</code> custom value</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [6]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">a = np.ones(dim)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [7]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">b = np.zeros(dim)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [8]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">f = np.full(dim, 3.17)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>4) Copy an array</p>
+
+<p>If you use <code>c=v</code> instead, you are not creating a new copy!</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [9]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">c = np.copy(v)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>5) Array of random values (between 0 and 1)</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [10]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">r = np.random.random(dim)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="initializing-matrices"></a></p>
+
+<h2 id="Initializing-matrices">Initializing matrices<a class="anchor-link", href="#Initializing-matrices"></a></h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Matrices are arrays with two-element <code>shape=(num_rows, num_cols)</code>.</p>
+
+<p>The previous methods can also be used.</p>
+
+<p>Just replace the integer valued dim with a tuple.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [11]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat = np.array([[0.70, 0.62, 5.96, 0.11, 0.20],
+                [0.36, 4.35, 0.72, -22.89, 0.85],
+                [-7.75, -3.18, 3.76, 0.91, 0.03],
+                [0.21, -0.97, 0.12, 0.78, 13.01],
+                [4.94, 1.60, 0.70, 14.26, 0.50]])</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [12]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">rmat = np.random.random((dim, dim))</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [13]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">onesmat = np.ones((3*dim, dim))</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="accessing-info"></a></p>
+
+<h2 id="Accessing-info-about-the-vector-or-matrix">Accessing info about the vector or matrix<a class="anchor-link", href="#Accessing-info-about-the-vector-or-matrix"></a></h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>We can obtain the dimension with the <code>shape</code> attribute:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [14]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v.shape, e.shape, a.shape, b.shape, f.shape, c.shape, r.shape</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[14]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>((5,), (5,), (5,), (5,), (5,), (5,), (5,))</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>For matrices,</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [15]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat.shape, rmat.shape, onesmat.shape</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[15]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>((5, 5), (5, 5), (15, 5))</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>The values of the arrays are accessed by indexing:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [16]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v[1], f[3], c[1], r[1], mat[1,3], onesmat[12,2]</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[16]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(3.4, 3.17, 3.4, 0.31927137812331163, -22.89, 1.0)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>You can access several indices too.</p>
+
+<p>Returns vectors with those elements</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [17]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v[3:], v[2:4], v[[1, 3]]</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[17]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(array([2.5e-02, 7.3e+01]), array([-6.   ,  0.025]), array([3.4  , 0.025]))</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>or the corresponding sub-matrices</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [18]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat[3:, 1:]</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[18]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[-0.97,  0.12,  0.78, 13.01],
+       [ 1.6 ,  0.7 , 14.26,  0.5 ]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>To access the upper-left 3x3 corner:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [19]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat[:3, :3]</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[19]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[ 0.7 ,  0.62,  5.96],
+       [ 0.36,  4.35,  0.72],
+       [-7.75, -3.18,  3.76]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>The elements of an array can be iterated.</p>
+
+<p>But you will RARELY NEED it.</p>
+
+<p>Almost all you need is already implemented with a much more efficient function.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="addition-multiplication-dot"></a></p>
+
+<h2 id="Addition,-matrix-multiplication-and-dot-product">Addition, matrix multiplication and dot product<a class="anchor-link", href="#Addition,-matrix-multiplication-and-dot-product"></a></h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Arrays that have the same shape can be added and substracted.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [20]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v+r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[20]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 1.79048548,  3.71927138, -5.63125973,  0.40518157, 73.79607726])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [21]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v-r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[21]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 0.20951452,  3.08072862, -6.36874027, -0.35518157, 72.20392274])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [22]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat+rmat</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[22]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[  1.58415271,   0.82733455,   6.29655989,   0.20884242,
+          1.08051455],
+       [  0.88898926,   4.89929672,   0.72514543, -22.59088473,
+          1.84500774],
+       [ -7.38426858,  -2.38760561,   4.67160119,   1.05838572,
+          0.91579577],
+       [  0.22332179,  -0.13600152,   0.874788  ,   1.6569578 ,
+         13.63505787],
+       [  5.79972802,   2.27929048,   1.68364833,  15.16910999,
+          0.54224241]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>They can also be multiplied by a scalar (an int, float or complex)</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [23]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">4*v+.333*r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[23]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 4.26323166e+00,  1.37063174e+01, -2.38772095e+01,  2.26600464e-01,
+        2.92265094e+02])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [24]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">(1+2j) * mat</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[24]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[  0.7  +1.4j ,   0.62 +1.24j,   5.96+11.92j,   0.11 +0.22j,
+          0.2  +0.4j ],
+       [  0.36 +0.72j,   4.35 +8.7j ,   0.72 +1.44j, -22.89-45.78j,
+          0.85 +1.7j ],
+       [ -7.75-15.5j ,  -3.18 -6.36j,   3.76 +7.52j,   0.91 +1.82j,
+          0.03 +0.06j],
+       [  0.21 +0.42j,  -0.97 -1.94j,   0.12 +0.24j,   0.78 +1.56j,
+         13.01+26.02j],
+       [  4.94 +9.88j,   1.6  +3.2j ,   0.7  +1.4j ,  14.26+28.52j,
+          0.5  +1.j  ]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Other Python operators are also defined on arrays.</p>
+
+<p>They usually act elementwise:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [25]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v**2</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[25]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([1.000e+00, 1.156e+01, 3.600e+01, 6.250e-04, 5.329e+03])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [26]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v > r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[26]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ True,  True, False, False,  True])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [27]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat < 2</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[27]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[ True,  True, False,  True,  True],
+       [ True, False,  True,  True,  True],
+       [ True,  True, False,  True,  True],
+       [ True,  True,  True,  True, False],
+       [False,  True,  True, False,  True]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [28]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v*r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[28]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 7.90485479e-01,  1.08552269e+00, -2.21244164e+00,  9.50453936e-03,
+        5.81136399e+01])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [29]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat*rmat</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[29]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[ 6.18906899e-01,  1.28547420e-01,  2.00589695e+00,
+         1.08726657e-02,  1.76102910e-01],
+       [ 1.90436133e-01,  2.38944072e+00,  3.70471121e-03,
+        -6.84674861e+00,  8.45756578e-01],
+       [-2.83441852e+00, -2.51981415e+00,  3.42762046e+00,
+         1.35031005e-01,  2.65738730e-02],
+       [ 2.79757597e-03, -8.08978530e-01,  9.05745604e-02,
+         6.84027084e-01,  8.13200288e+00],
+       [ 4.24705644e+00,  1.08686477e+00,  6.88553829e-01,
+         1.29639084e+01,  2.11212034e-02]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><code>@</code> can be used to perform matrix multiplication.</p>
+
+<p>It can also be implemented with <code>np.dot</code> function.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [30]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat @ v</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[30]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([-18.34925,  72.30775, -38.90925, 945.9415 ,  43.0365 ])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [31]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.dot(mat, v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[31]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([-18.34925,  72.30775, -38.90925, 945.9415 ,  43.0365 ])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [32]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat.dot(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[32]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([-18.34925,  72.30775, -38.90925, 945.9415 ,  43.0365 ])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><code>@</code> and <code>np.dot</code> also implement the inner product between vectors:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [33]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v @ r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[33]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>57.78671096606</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [34]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.dot(v, r)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[34]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>57.78671096606</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [35]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v.dot(r)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[35]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>57.78671096606</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>When working with complex vectors it is also common to take the complex conjugate of the first vector to perform the dot product.</p>
+
+<p>This is implemented in the <code>np.vdot</code> function (it should only be used for vectors):</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [36]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v1 = np.array([5j, -1+3j, -4j])
+v2 = np.array([0.4, -1+0.5j, -1j])</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [37]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.dot(v1, v2)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[37]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(-4.5-1.5j)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [38]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.vdot(v1, v2)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[38]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(6.5+0.5j)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [39]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.vdot(v2, v1)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[39]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(6.5-0.5j)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Matrices can be transposed with <code>np.transpose</code>:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [40]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.transpose(mat)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[40]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[  0.7 ,   0.36,  -7.75,   0.21,   4.94],
+       [  0.62,   4.35,  -3.18,  -0.97,   1.6 ],
+       [  5.96,   0.72,   3.76,   0.12,   0.7 ],
+       [  0.11, -22.89,   0.91,   0.78,  14.26],
+       [  0.2 ,   0.85,   0.03,  13.01,   0.5 ]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [41]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">mat.transpose()</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[41]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[  0.7 ,   0.36,  -7.75,   0.21,   4.94],
+       [  0.62,   4.35,  -3.18,  -0.97,   1.6 ],
+       [  5.96,   0.72,   3.76,   0.12,   0.7 ],
+       [  0.11, -22.89,   0.91,   0.78,  14.26],
+       [  0.2 ,   0.85,   0.03,  13.01,   0.5 ]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="mathematical-functions-numpy"></a></p>
+
+<h2 id="Mathematical-functions-in-numpy">Mathematical functions in <code>numpy</code><a class="anchor-link", href="#Mathematical-functions-in-numpy"></a></h2>
+<p>These functions act elementwise.</p>
+
+<p>The exponential:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [42]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.exp(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[42]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([2.71828183e+00, 2.99641000e+01, 2.47875218e-03, 1.02531512e+00,
+       5.05239363e+31])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Trigonometric functions:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [43]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.sin(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[43]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 0.84147098, -0.2555411 ,  0.2794155 ,  0.0249974 , -0.67677196])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [44]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.cos(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[44]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([ 0.54030231, -0.96679819,  0.96017029,  0.99968752, -0.73619272])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [45]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.tan(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[45]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([1.55740772, 0.2643169 , 0.29100619, 0.02500521, 0.9192864 ])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [46]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.sin(v)**2+np.cos(v)**2</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[46]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([1., 1., 1., 1., 1.])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Absolute value:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [47]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.abs(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[47]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([1.0e+00, 3.4e+00, 6.0e+00, 2.5e-02, 7.3e+01])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Custom functions:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [48]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">def my_function(x):
+    return 4 * np.exp(x**2 / 9)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [49]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">my_function(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[49]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([4.47007627e+000, 1.44506415e+001, 2.18392600e+002, 4.00027779e+000,
+       5.65780820e+257])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="boolean-operators"></a></p>
+
+<h2 id="Boolean-operators">Boolean operators<a class="anchor-link", href="#Boolean-operators"></a></h2>
+<p><code>></code>,<code><</code>,<code>and</code>, and <code>or</code> act elementwise.</p>
+
+<p>To build boolean clauses that return <code>True</code> or <code>False</code> one can use the operators <code>np.any</code> and <code>np.all</code>.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [50]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v < r</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[50]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([False, False,  True,  True, False])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [51]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.any(v < r)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[51]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>True</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [52]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.all(v < r)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[52]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>False</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>This is particullarly useful to check if two vectors have similar entries.</p>
+
+<p>For instance, to check if all the entries are within <code>0.01</code> distance:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [53]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.all(np.abs(v-r) < 0.01)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[53]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>False</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="aggregation-functions"></a></p>
+
+<h2 id="Aggregation-functions">Aggregation functions<a class="anchor-link", href="#Aggregation-functions"></a></h2>
+<p>Aggregation functions take an array and return a single value. For instance, the sum.</p>
+
+<p>Summary statistics, such as the mean, median, maximum value or standard deviation, are other examples of aggregation functions.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [54]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.sum(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[54]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>71.425</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [55]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.mean(v), np.sum(v) / v.shape[0]</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[55]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(14.285, 14.285)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [56]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.median(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[56]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>1.0</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [57]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.std(v), np.sqrt(np.mean(v**2 - np.mean(v)**2))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[57]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>(29.520347220180188, 29.52034722018018)</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [58]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.max(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[58]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>73.0</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [59]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.min(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[59]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>-6.0</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>If the input is a matrix, these functions act on all the elements.</p>
+
+<p>But you can also select a particular axis to act on.</p>
+
+<p>For instance, to compute a vector that contains the sum of the columns:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [60]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.sum(mat, axis=1)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[60]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([  7.59, -16.61,  -6.23,  13.15,  22.  ])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+    </div>
+
+  </div>
+
+
+</div>
+<nav id=footer-bar>
+<p class=foot-bar>¡Gracias por leer! </p>
+<p class=foot-bar><img src="gato-moviendo-la-cabeza.gif" alt="Gato moviendo la cabeza" width=300> </p>
+<p class=foot-bar><a class=foot-bar href="https://twitter.com/ProfRyuzaki">@ProfRyuzaki</a></p>
+</nav>
+
+<script src="prism.js"></script>
+</body>
+    
+</html>

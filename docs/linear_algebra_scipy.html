@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8" />
+<title>vector_space_definition_and_examples</title>
+
+<link rel="stylesheet" href="custom.css">
+<link href="themes/prism.css" rel="stylesheet" />
+
+</head>
+
+<!-- Loading mathjax macro -->
+<!-- Load mathjax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
+<!-- MathJax configuration -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true,
+        processEnvironments: true
+    },
+    // Center justify equations in code and markdown cells. Elsewhere
+    // we use CSS to left justify single line equations in code cells.
+    displayAlign: 'center',
+    "HTML-CSS": {
+        styles: {'.MathJax_Display': {"margin": 0}},
+        linebreaks: { automatic: true }
+    }
+});
+</script>
+<!-- End of mathjax configuration --></head>
+
+<body>
+<nav id=navigation-bar>
+<ul class=nav-bar>
+<li class=nav-bar><a href="index.html"><img src="taza.png" alt="Taza R" width="50" height="50"></a></li>
+</ul> 
+</nav>
+<div class=notebook>
+  <div tabindex="-1", id="notebook", class="border-box-sizing">
+
+    <div class="container", id="notebook-container">
+
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<h1 id="Linear-algebra-with-scipy">Linear algebra with scipy<a class="anchor-link", href="#Linear-algebra-with-scipy"></a></h1>
+<p>Voy directo a las buenas noticias:</p>
+
+<blockquote><p>La librería <code>linalg</code> de <code>scipy</code> tiene todo lo que puedas necesitar en lo que respecta a funciones para álgebra lineal.</p>
+
+</blockquote>
+<p>¿Determinantes?</p>
+
+<p>Hecho.</p>
+
+<p><br></p>
+
+<p>¿Valores y vectores propios?</p>
+
+<p>Hecho.</p>
+
+<p><br></p>
+
+<p>¿Exponencial de una matriz?</p>
+
+<p>Hecho.</p>
+
+<p><br></p>
+
+<p>Y un largo etc.</p>
+
+<p><em>Vamos con el resumen de las más útiles:</em></p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [1]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">import numpy as np
+from scipy import linalg</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<h2 id="Content">Content<a class="anchor-link", href="#Content"></a></h2>
+<ol>
+<li><a href="#determinant">Determinant</a></li>
+<li><a href="#norm">Norm</a></li>
+<li><a href="#inverse">Inverse</a></li>
+<li><a href="#kronecker-product">Kronecker product</a></li>
+<li><a href="#solving-linear-equations">Solving linear equations</a></li>
+<li><a href="#eigenvalue-problems">Eigenvalue problems</a></li>
+<li><a href="#matrix-functions">Matrix functions</a></li>
+<li><a href="#further-reading">Further reading</a></li>
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Let's define a vector $v$ and a matrix $M$:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [2]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">v = np.array([1,3.4,-6,.025,73])
+M = np.array([[0.70, 0.62, 5.96, 0.11, 0.20],
+                [0.36, 4.35, 0.72, -22.89, 0.85],
+                [-7.75, -3.18, 3.76, 0.91, 0.03],
+                [0.21, -0.97, 0.12, 0.78, 13.01],
+                [4.94, 1.60, 0.70, 14.26, 0.50]])</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="determinant"></a></p>
+
+<h2 id="Determinant">Determinant<a class="anchor-link", href="#Determinant"></a></h2>
+<p>To compute the determinant of the matrix $\det M$:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [3]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">linalg.det(M)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[3]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>-31366.266422286597</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="norm"></a></p>
+
+<h2 id="Norm">Norm<a class="anchor-link", href="#Norm"></a></h2>
+<p>The norm of a vector $\Vert v\Vert$ and a matrix $\Vert M\Vert$, is particularly useful to measure its "magnitude".</p>
+
+<p>Roughly, the smaller the norm, the nearer the zero vector or matrix it is.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [4]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">linalg.norm(v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[4]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>73.33185273126543</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [5]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">linalg.norm(M)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[5]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>32.67650226079897</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Defaults to Frobenius norm for matrices and 2-norm for vectors, that is</p>
+
+$$
+\Vert v \Vert = \sqrt{\sum_{i=1}^n \vert v_i\vert^2}=
+\sqrt{\vert v_1\vert^2 + ... + \vert v_n\vert^2}
+$$<p></p>
+
+$$
+\Vert M \Vert = \sqrt{\sum_{i=1}^n \sum_{j=1}^m \vert m_{ij}\vert^2}=
+\sqrt{\operatorname{Tr} M^{\dagger} M}
+$$<p>For more norms you can check the documentation of the function.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="inverse"></a></p>
+
+<h2 id="Inverse">Inverse<a class="anchor-link", href="#Inverse"></a></h2>
+<p>The conventional inverse of a matrix $M^{-1}$ which satisfies $M^{-1}M=M M^{-1}=I$:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [6]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">Minv = linalg.inv(M)
+linalg.norm(Minv @ M-np.identity(M.shape[0]))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[6]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>2.0025314384467967e-15</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>We can also compute the Moore-Penrose pseudo-inverse with <code>linalg.pinv</code>, which is a generalization of the inverse for non-invertible matrices.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="kronecker-product"></a></p>
+
+<h2 id="Kronecker-product">Kronecker product<a class="anchor-link", href="#Kronecker-product"></a></h2>
+<p>This is very widely used in quantum mechanics.</p>
+
+<p>Given a $m\times n$ matrix $A$ and a $p \times q$ matrix B it returns the $mp \times nq$ matrix:</p>
+
+$$
+A\otimes B=
+\begin{pmatrix}
+a_{11} B & ... & a_{1n} B \\
+\vdots & \ddots & \vdots \\
+a_{m1} B & ... & a_{mn} B \\
+\end{pmatrix}
+$$
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [7]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">A = np.array([[2,3],[-3,4]])
+B = np.array([[5,7],[7,0]])
+
+np.kron(A, B)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[7]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>array([[ 10,  14,  15,  21],
+       [ 14,   0,  21,   0],
+       [-15, -21,  20,  28],
+       [-21,   0,  28,   0]])</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="solving-linear-equations"></a></p>
+
+<h2 id="Solving-linear-equations">Solving linear equations<a class="anchor-link", href="#Solving-linear-equations"></a></h2>
+<p>The <code>linalg.solve</code> function can be used to solve the linear equation</p>
+
+$$
+A x = b
+$$
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [8]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">x = linalg.solve(M, v)
+linalg.norm(M @ x-v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[8]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>1.3721997354362565e-14</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>There are specific functions for banded matrices, Hermitian positive definite banded matrices, triangular matrices...</p>
+
+<p>They will be more efficient. But should only be used when you are certain that the matrix satisfies that condition.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><code>linalg.lstsq</code> provides the least squares solution to the equation $Ax=B$, that is, finds $x$ such that it minimizes</p>
+
+$$\Vert Ax - b\Vert^2 = \sum_{i=1}^n \vert (Ax)_i-b_i\vert^2$$<p>For example:</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [9]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># random 5 x 30 matrix
+# with entries from -10 to 10
+A = 20*(0.5 - np.random.random((30, 5)))
+
+# random vector
+v = 20*(0.5 - np.random.random(30))</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>The function returns the solution <code>x</code>, the residuals <code>res</code>, the effective rank of the matrix <code>rank</code>, and the singular values of the matrix <code>s</code>.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [10]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">x, res, rank, s = linalg.lstsq(A, v)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [11]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">linalg.norm(A @ x - v)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[11]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>25.33943499894492</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [12]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">np.sqrt(np.sum(res))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[12]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>25.33943499894492</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="eigenvalue-problem"></a></p>
+
+<h2 id="Eigenvalue-problem">Eigenvalue problem<a class="anchor-link", href="#Eigenvalue-problem"></a></h2>
+<p>The <code>linalg.eig</code> function can be used to solve an ordinary or generalized eigenvalue problem.</p>
+
+<p>I will elaborate on this topic in another tutorial.</p>
+
+<p>Today I will just say that if the matrix $A$ is diagonalizable, then this function returns the eigevalues and normalized eigenvectors.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [13]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">w, v = linalg.eig(M)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>Here $w=(w_0,...,w_{n-1})$ are the eigenvalues, and the eigenvectors are stored in the columns of <code>v</code> as $v=(v_0,...,v_{n-1})$.</p>
+
+<p>Note that $\Vert w_i v_i - M v_i\Vert = 0$.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [14]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">for i in range(len(w)):
+    print(linalg.norm(w[i] * v[:,i]  - M @ v[:,i]))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt">
+</div>
+
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+
+<pre>9.236228198169747e-15
+1.0995132274107486e-14
+9.671254982428856e-15
+9.671254982428856e-15
+7.57732297728375e-15
+</pre>
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>When only the eigenvalues are required you can use the <code>linalg.eigvals</code> function.</p>
+
+<p>If you are certain that the matrix is Hermitian, you can use the <code>linalg.eigh</code> and <code>linalg.eigvalsh</code> instead.</p>
+
+<p><strong>WARNING:</strong> If your matrix is NOT Hermitian but you strill try to use the Hermitian-specific implementation of the fucntion, you will get a result. <em>It won't rise an error</em>. I don't know what those numbers are, but they are not the eigenvalues!</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p>You can also compute the singluar values and singular value decomposition with <code>linalg.svdvals</code> and <code>linalg.svd</code>.</p>
+
+<p>I will elaborate on this in another tutorial.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<p><a id="matrix-functions"></a></p>
+
+<h2 id="Matrix-functions">Matrix functions<a class="anchor-link", href="#Matrix-functions"></a></h2>
+<p>Matrix functions will also be the topic of a tutorial.</p>
+
+<p>For now, just get the idea that if $f$ is a fucntion then $f(A)$ is generally different to applying $f(a_{ij})$ elementwise.</p>
+
+<p>Although it is equivalent to the element-wise application when the matrix is diagonal</p>
+
+$$
+f(D)=
+\begin{pmatrix}
+f(d_1) & & \\
+ & \ddots & \\
+ & & f(d_n)
+\end{pmatrix}
+$$<p>when the matrix is diagonalizable with $A=X D X^{-1}$ it is</p>
+
+$$
+f(A) = X f(D) X^{-1}
+$$<p>There are proper generalizations for other matrices. But we will see this in another tutorial.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [15]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">em = linalg.expm(M)
+lm = linalg.logm(M)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [16]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># Note that exp(log(A)) = A
+linalg.norm(M - linalg.expm(lm))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[16]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>1.3359560966687505e-13</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [17]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># But, in general log(exp(A)) != A
+# Due to complex eigenvalues
+linalg.norm(M - linalg.logm(em))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[17]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>13.606326904607023</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [18]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># Indeed, some eigenvalues of M are complex
+# Eg 3.75144782+6.68637608j
+np.log(np.exp(3.75144782+6.68637608j)), np.exp(np.log(3.75144782+6.68637608j))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[18]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>((3.75144782+0.40319077282041316j), (3.7514478200000014+6.6863760800000005j))</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [19]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">sm = linalg.sinm(M)
+cm = linalg.cosm(M)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [20]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># Note that sin(A)^2 + cos(A)^2 = I
+linalg.norm(sm @ sm + cm @ cm - np.identity(M.shape[0]))</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[20]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>1.397724998248132e-10</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [21]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!">sqm = linalg.sqrtm(M)</pre></code>
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [22]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># Note that sqm @ sqm = M
+linalg.norm(sqm @ sqm - M)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[22]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>9.746887257134819e-14</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="input">
+
+<div class="prompt input_prompt">
+In [23]:</div>
+
+<div class="inner_cell">
+
+    <pre><code class="language-python" data-prismjs-copy="Copy!"># But not elementwise
+linalg.norm(sqm * sqm - M)</pre></code>
+</div>
+
+</div>
+
+
+<div class="output_wrapper">
+
+<div class="output">
+
+
+
+<div class="output_area">
+
+
+    <div class="prompt output_prompt">
+Out[23]:</div>
+
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+
+<pre>41.545328053531506</pre>
+</div>
+
+
+</div>
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+
+</div>
+<div class="inner_cell">
+
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<h2 id="Further-reading">Further reading<a class="anchor-link", href="#Further-reading"></a></h2>
+<p>I strongly recomend the <a href="https://docs.scipy.org/doc/scipy/reference/linalg.html">scipy.linalg documentation</a>.</p>
+
+<p>But it can be overwelming to start with.</p>
+
+<p>Use it to read the documentation of a specific function.</p>
+
+
+</div>
+
+</div>
+
+</div>
+
+    </div>
+
+  </div>
+
+
+</div>
+<nav id=footer-bar>
+<p class=foot-bar>¡Gracias por leer! </p>
+<p class=foot-bar><img src="gato-moviendo-la-cabeza.gif" alt="Gato moviendo la cabeza" width=300> </p>
+<p class=foot-bar><a class=foot-bar href="https://twitter.com/ProfRyuzaki">@ProfRyuzaki</a></p>
+</nav>
+
+<script src="prism.js"></script>
+</body>
+    
+</html>
