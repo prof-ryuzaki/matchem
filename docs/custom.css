@@ -14,14 +14,14 @@ body {
     color: rgb(118,61,65);
     text-align: center;
     font-family: verdana;
-    font-size: 3em;
-    padding: 30px;
+    font-size: 2em;
+    /*padding: 30px;*/
   }
 
   h2 {
     color: rgb(118,61,65);
     font-family: verdana;
-    font-size: 2em;
+    font-size: 1.5em;
     text-transform: uppercase;
     padding-bottom: 10px;
   }
@@ -37,19 +37,19 @@ body {
   
   p {
     font-family: verdana;
-    font-size: 1.2em;
+    font-size: 1em;
     line-height: 1.7;
   } 
 
   ol {
     font-family: verdana;
-    font-size: 1.2em;
+    font-size: 1em;
     line-height: 1.2;
   }
 
   ul {
     font-family: verdana;
-    font-size: 1.2em;
+    font-size: 1em;
     line-height: 1.2;
   }
 
@@ -113,6 +113,7 @@ nav.foot-bar {
 .prompt {
     display: none;
   }
+
 
   /* make all code cells scrollable
 div.code_cell {
